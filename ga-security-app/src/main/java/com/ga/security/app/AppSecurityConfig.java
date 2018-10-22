@@ -1,7 +1,7 @@
-package com.ga.security.browser;
+package com.ga.security.app;
 
-import com.ga.security.browser.authentication.GaAuthenticationFailureHandler;
-import com.ga.security.browser.authentication.GaAuthenticationSuccessHandler;
+import com.ga.security.app.authentication.GaAuthenticationFailureHandler;
+import com.ga.security.app.authentication.GaAuthenticationSuccessHandler;
 import com.ga.security.core.properties.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import javax.annotation.Resource;
 
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     GaAuthenticationSuccessHandler gaAuthenticationSuccessHandler;
@@ -34,7 +34,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
          *  自定义登陆界面 时候 注意放置在 static 目录下
          * */
         /**表单登陆**/
-        http.formLogin()
+        http.formLogin().permitAll()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
                  //配置成功登陆后的操作，框架 没有默认  会报 http 302错误
@@ -42,29 +42,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(gaAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                //当匹配到登陆界面时 不需要认证
-                .antMatchers("/authentication/require","/error","/code/image",
-                        securityProperties.getBrowser().getLoginPage()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .csrf().disable();
-        /**http basic登陆*/
-       /* http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();*/
     }
 
-
-    /**
-     * 添加一个 不需要对密码做任何处理的密码编码器,在spring security 5.0后 需要手动设置
-     */
-  /*  @Bean
-    public NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }*/
 
 
 

@@ -6,8 +6,6 @@ package com.ga.security.core.properties;
  * @date:2018/10/11_13:59
  */
 public enum LoginType {
-
     REDIRECT,
     JSON
-
 }

@@ -1,4 +1,4 @@
-package com.ga.security.browser.support;
+package com.ga.security.core.support;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.ga.security.browser;
+package com.ga.security.app;
 
 import com.ga.security.core.properties.SecurityProperties;
 import com.ga.security.core.support.SimpleResponse;
@@ -21,7 +21,7 @@ import java.io.IOException;
 
 @Slf4j
 @RestController
-public class BrowserSecurityController {
+public class AppSecurityController {
 
     private RequestCache requestCache=new HttpSessionRequestCache();
 
